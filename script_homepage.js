@@ -1,6 +1,6 @@
 searchBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    location.href = '/search.html';
+    location.href = './search.html';
 })
 
 const search = () => {
