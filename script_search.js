@@ -1,0 +1,2 @@
+
+searchBtn.addEventListener("click", search)

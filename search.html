@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Music Player</title>
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body style="font-family: 'Quicksand';">
+
+    <!-- Nav  -->
+    <header class="text-gray-400 bg-gray-900 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
+
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
+                </svg>
+
+                <span class="ml-3 text-xl">Music Player</span>
+            </a>
+            <nav
+                class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
+                <a class="mr-5 hover:text-white cursor-pointer" href="index.html">Home</a>
+                <a class="mr-5 hover:text-white cursor-pointer">About</a>
+                <a class="mr-5 hover:text-white cursor-pointer">My Favs</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Search Box -->
+    <section class="text-gray-400 bg-gray-900 body-font">
+        <div class="container px-5 py-5 mx-auto">
+            <div class="text-center mb-10">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font text-white mb-4">Search for a song
+                </h1>
+                <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-400 text-opacity-80">Search for
+                    your favourite song to listen/download it AdFree-ly.</p>
+            </div>
+            <div class="flex mt-6 justify-center">
+                <div class="w-16 h-1 rounded-full bg-indigo-500 inline-flex"></div>
+            </div>
+        </div>
+
+        <div class="container px-5 py-0 mx-auto">
+            <div
+                class="flex lg:w-4/12 w-full sm:flex-row flex-col mx-auto px-8 sm:px-0 items-end sm:space-x-4 sm:space-y-0 space-y-4">
+                <div class="relative sm:mb-0 flex-grow w-full">
+                    <label for="query" class="leading-7 text-sm text-gray-400">Search by song name</label>
+                    <input type="text" id="query" name="query"
+                        class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+                <button id="searchBtn"
+                    class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Go</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Resuts -->
+    <section class="text-gray-400 bg-gray-900 body-font">
+        <div class="blur-lg container px-5 py-16 mx-auto">
+            <div class="flex flex-col text-center w-full mb-10">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Search Results: <span id="search_query">Kun Faya Kun</span></h1>    
+            </div>
+
+            <div class="flex flex-wrap -m-2" id="results">
+                <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+                    <div class="h-full flex items-center border-gray-800 border p-4 rounded-lg">
+                        <img alt="team"
+                            class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                            src="https://dummyimage.com/80x80">
+                        <div class="flex-grow">
+                            <h2 class="text-white title-font font-medium">Holden Caulfield</h2>
+                            <p class="text-gray-600">UI Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+                    <div class="h-full flex items-center border-gray-800 border p-4 rounded-lg">
+                        <img alt="team"
+                            class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                            src="https://dummyimage.com/84x84">
+                        <div class="flex-grow">
+                            <h2 class="text-white title-font font-medium">Henry Letham</h2>
+                            <p class="text-gray-600">CTO</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+                    <div class="h-full flex items-center border-gray-800 border p-4 rounded-lg">
+                        <img alt="team"
+                            class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                            src="https://dummyimage.com/88x88">
+                        <div class="flex-grow">
+                            <h2 class="text-white title-font font-medium">Oskar Blinde</h2>
+                            <p class="text-gray-600">Founder</p>
+                        </div>
+                    </div>
+                </div>
+               
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Player -->
+    <section class=" text-gray-400 bg-gray-900 body-font px-4">
+        <div class="min-h-screen bg-gray-900 flex flex-col items-center justify-center">
+            <div class="max-w-xl bg-grey-300 rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img height="200" width="300" src="https://c.saavncdn.com/663/Pasoori-Punjabi-2022-20220203181058-500x500.jpg"
+                        class="object-cover">
+                    <div
+                        class="absolute p-4 inset-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-gray-900 backdrop backdrop-blur-5 text-white">
+                        <h3 class="font-bold">Pasoori</h3>
+                        <span class="opacity-70">Ali Sethi, Shae Gill</span>
+                    </div>
+                </div>
+
+                <!-- Slider -->
+                <div>
+                    <input type="range" class="w-full" name="slider" id="slider" min="0" max="224">
+                </div>
+
+
+                <div class="flex justify-between text-xs font-semibold text-gray-500 px-4 py-2">
+                    <div id="startTime">
+                        0:00
+                    </div>
+                    <div class="flex space-x-3 p-2">
+                        <button class="focus:outline-none">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="19 20 9 12 19 4 19 20"></polygon>
+                                <line x1="5" y1="19" x2="5" y2="5"></line>
+                            </svg>
+                        </button>
+                        <button
+                            class="rounded-full w-8 h-8 flex items-center justify-center pl-0.5 ring-2 ring-gray-100 focus:outline-none">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </button>
+                        <button class="focus:outline-none">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                                <line x1="19" y1="5" x2="19" y2="19"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="endTime">
+                        3:00
+                    </div>
+                    
+                </div>
+                <ul class="text-xs sm:text-base divide-y border-t cursor-default">
+                    <li class="flex items-center space-x-3 hover:bg-gray-800">
+                        <button class="p-3  group focus:outline-none">
+                            <svg class="w-4 h-4 group-hover:text-white" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </button>
+                        
+                        <div class="flex-1">
+                            
+                        </div>
+                        Download
+                        <button class="focus:outline-none pr-4 group ">
+                            <svg class="w-4 h-4 group-hover:text-white " viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
+                            </svg>
+                        </button>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-gray-400 bg-gray-900 body-font">
+        <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+            <a class="flex title-font font-medium items-center text-white mb-2 md:mb-0">
+
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
+                </svg>
+
+                <span class="ml-3 text-xl">Music Player</span>
+            </a>
+            <p class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">
+                Built
+                with ♥ by
+                <a href="https://github.com/codyandersan" class="text-gray-500 ml-1" target="_blank"
+                    rel="noopener noreferrer">@codyandersan</a>
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="script_search.js"></script>
+</body>
+
+</html>
