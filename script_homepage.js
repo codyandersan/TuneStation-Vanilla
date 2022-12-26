@@ -73,7 +73,7 @@ const search = () => {
                 songs_cards.innerHTML += `
                 <div class="p-4 lg:w-1/4 md:w-1/2">
                     <div class="h-full flex flex-col items-center text-center">
-                        <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4"
+                        <img class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4"
                             src="${song["image"]}">
                         <div class="w-full">
                             <h2 class="title-font font-medium text-lg text-white">${song["name"]}</h2>                
