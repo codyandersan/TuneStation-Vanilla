@@ -71,6 +71,11 @@ slider.addEventListener("oninput", () => {
     songPlayer.currentTime = slider.value
 })
 
+function seekTo() {
+    let seekto = songPlayer.duration * (slider.value / 100);       
+    songPlayer.currentTime = seekto;
+  }
+
 const setPlayer = (name, image, link, artists, copyright) => {
     blurred_results.classList.add("hidden");
     player.classList.remove("hidden")
@@ -87,17 +92,21 @@ const setPlayer = (name, image, link, artists, copyright) => {
     songPlayer.addEventListener("loadeddata", () => {
         let duration = songPlayer.duration;
         // convert float to int
-
+        slider.max  = Math.floor(duration).toString()
+        console.log("hio" + slider.max)
         let duration_mins = (Math.floor(duration / 60)).toString() + ":" + (Math.floor(duration % 60)).toString()
         console.log(duration_mins)
         endTime.innerHTML = duration_mins
 
         setInterval(() => {
             let currentTime = songPlayer.currentTime;
-            let progress = currentTime / duration;
-            progress = Math.round(progress * 100);
-            progress = progress.toString();
-            slider.value = progress
+            // let progress = currentTime / duration;
+            // progress = Math.round(progress * 100);
+            // progress = progress.toString();
+            // slider.value = progress
+            seekPosition = currentTime * (100 / songPlayer.duration);
+            console.log(seekPosition)
+            slider.value = seekPosition;
         }, 1000)
 
 
@@ -132,3 +141,7 @@ controlBtn.addEventListener("click", () => {
     if (songPlayer.paused) songPlayer.play();
     else songPlayer.pause();
 })
+
+    // Calculate the seek position by the
+    // percentage of the seek slider
+    // and get the relative duration to the track
