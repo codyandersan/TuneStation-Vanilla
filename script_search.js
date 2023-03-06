@@ -1,4 +1,3 @@
-
 const search = () => {
     let uri = `https://saavn.me/search/songs?query=${query.value.replaceAll(" ", "+")}&page=1&limit=6`
     fetch(uri)
@@ -42,8 +41,10 @@ const search = () => {
         .catch(err => {
         });
 }
+// ---------------------------------------------------------------------------------------- 
 
 
+// Download Functions 
 const downloadBlob = (blob, filename) => {
     var a = document.createElement('a');
     a.download = filename;
@@ -63,20 +64,19 @@ const downloadSong = (url) => {
         })
         .catch(e => console.error(e));
 }
+// ---------------------------------------------------------------------------------------- 
 
-
+// Initial Setups 
 const songPlayer = new Audio();
 slider.value = "0"
-slider.addEventListener("oninput", () => {
-    songPlayer.currentTime = slider.value
-})
+// ---------------------------------------------------------------------------------------- 
 
-function seekTo() {
-    let seekto = songPlayer.duration * (slider.value / 100);       
-    songPlayer.currentTime = seekto;
-  }
 
+
+
+// Setting up the player UI and starting song
 const setPlayer = (name, image, link, artists, copyright) => {
+    // Setting the UI items
     blurred_results.classList.add("hidden");
     player.classList.remove("hidden")
     player.scrollIntoView(true);
@@ -88,60 +88,112 @@ const setPlayer = (name, image, link, artists, copyright) => {
     songPlayer.src = link
     songPlayer.load();
 
-
-    songPlayer.addEventListener("loadeddata", () => {
-        let duration = songPlayer.duration;
-        // convert float to int
-        slider.max  = Math.floor(duration).toString()
-        console.log("hio" + slider.max)
-        let duration_mins = (Math.floor(duration / 60)).toString() + ":" + (Math.floor(duration % 60)).toString()
-        console.log(duration_mins)
-        endTime.innerHTML = duration_mins
-
-        setInterval(() => {
-            let currentTime = songPlayer.currentTime;
-            // let progress = currentTime / duration;
-            // progress = Math.round(progress * 100);
-            // progress = progress.toString();
-            // slider.value = progress
-            seekPosition = currentTime * (100 / songPlayer.duration);
-            console.log(seekPosition)
-            slider.value = seekPosition;
-        }, 1000)
-
-
-
-        songPlayer.currentTime = 0;
-        songPlayer.play();
-        songPlayer.addEventListener('play', () => {
-            controlBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
-        </svg>`
-        });
-        songPlayer.addEventListener('pause', () => {
-            controlBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
-        </svg>`
-        });
-        songPlayer.addEventListener("ended", () => {
-            songPlayer.pause();
-        })
-
-        downloadBtn.addEventListener("click", () => {
-            downloadSong(link)
-            alert("This song is being downloaded!")
-        });
-    })
+    // Download Event 
+    downloadBtn.addEventListener("click", () => {
+        downloadSong(link)
+        alert("This song is being downloaded!")
+    });
 
 }
-searchBtn.addEventListener("click", search)
+// ---------------------------------------------------------------------------------------- 
+
+// On loaded
+songPlayer.addEventListener("loadedmetadata", () => {
+    let duration = songPlayer.duration;
+    let duration_mins = Math.floor(duration / 60);
+    let duration_secs = Math.floor(duration % 60);
+    endTime.innerHTML = duration_mins + ":" + (duration_secs < 10 ? "0" : "") + duration_secs;
+    unlike()
+    songPlayer.play();
+
+})
+// ---------------------------------------------------------------------------------------- 
+
+// Seek to the position clicked on the seek bar
+slider.addEventListener('input', () => {
+    const seekTime = (songPlayer.duration / 100) * slider.value;
+    songPlayer.currentTime = seekTime;
+});
+// ---------------------------------------------------------------------------------------- 
+
+
+// Auto updating
+songPlayer.addEventListener('timeupdate', () => {
+    const percentComplete = (songPlayer.currentTime / songPlayer.duration) * 100;
+    slider.value = percentComplete;
+    const currentMins = Math.floor(songPlayer.currentTime / 60);
+    const currentSecs = Math.floor(songPlayer.currentTime % 60);
+    currentTime.textContent = `${currentMins}:${currentSecs < 10 ? '0' : ''}${currentSecs}`;
+});
+// ---------------------------------------------------------------------------------------- 
+
+// On ended
+songPlayer.addEventListener('ended', () => {
+    songPlayer.currentTime = 0;
+    songPlayer.pause();
+    slider.value = 0;
+});
+// ---------------------------------------------------------------------------------------- 
+
+
+// Control Handlers
 controlBtn.addEventListener("click", () => {
     if (songPlayer.paused) songPlayer.play();
     else songPlayer.pause();
 })
 
-    // Calculate the seek position by the
-    // percentage of the seek slider
-    // and get the relative duration to the track
+previous.addEventListener("click", () => {
+    songPlayer.currentTime = 0;
+    slider.value = 0;
+})
+next.addEventListener("click", () => {
+    songPlayer.currentTime = 0;
+    slider.value = 0;
+})
+// ---------------------------------------------------------------------------------------- 
+
+
+// Changing Button UI 
+songPlayer.addEventListener('play', () => {
+    controlBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+    </svg>`
+});
+songPlayer.addEventListener('pause', () => {
+    controlBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+    </svg>`
+});
+// ---------------------------------------------------------------------------------------- 
+
+// Managing Favourites
+favBtn.addEventListener("click", () => {
+    // if song not in favourites, then:
+    favBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+    </svg>
+`
+})
+
+const like = () => { //take songname
+    // add song to localStorage
+    favBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+    </svg>
+`
+}
+const unlike = () => {  // Not dislike!!
+    // remove song from localStorage
+    favBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+    </svg>
+`
+}
+
+document.getElementById("searchBtn").addEventListener("click", search)
+

@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search - Music Player</title>
+    <title>Search - TuneStation</title>
+    <meta name="description" content="TuneStation is an online ad free music player and downloader for free. With TuneStation, you can listen and download over 80 million songs for FREE without any ads!"/>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
-    
+
     <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
@@ -16,11 +17,14 @@
     <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 </head>
 
-<body style="font-family: 'Quicksand';">
+<body style="font-family: 'Raleway', sans-serif;">
 
     <!-- Nav  -->
     <header class="text-gray-400 bg-gray-900 body-font">
@@ -33,17 +37,17 @@
                         d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
                 </svg>
 
-                <span class="ml-3 text-xl">Music Player</span>
+                <span class="ml-3 text-xl">TuneStation</span>
             </a>
             <nav
                 class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
                 <a class="mr-5 hover:text-white cursor-pointer" href="./index.html">Home</a>
-                <a class="mr-5 hover:text-white cursor-pointer">About</a>                
+                <span class="mr-5 hover:text-gray-400 text-white cursor-pointer">Search </span>
             </nav>
 
         </div>
     </header>
-    
+
     <!-- Search Box -->
     <section class="text-gray-400 bg-gray-900 body-font">
         <div class="container px-5 py-5 mx-auto">
@@ -73,10 +77,11 @@
     </section>
 
     <!-- Search Resuts -->
-    <section class="text-gray-400 bg-gray-900 body-font" >    
+    <section class="text-gray-400 bg-gray-900 body-font">
         <div class="blur-lg container px-5 py-16 mx-auto" id="blurred_results">
             <div class="flex flex-col text-center w-full mb-10">
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Search Results: &#10075;<span id="search_query" class="capitalize">Kun Faya Kun</span>&#10076;</h1>    
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Search Results: &#10075;<span
+                        id="search_query" class="capitalize">Kun Faya Kun</span>&#10076;</h1>
             </div>
 
             <div class="flex flex-wrap -m-2" id="results">
@@ -113,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-               
+
 
             </div>
         </div>
@@ -125,7 +130,8 @@
         <div class="min-h-screen bg-gray-900 flex flex-col items-center justify-center">
             <div class="max-w-xl bg-grey-300 rounded-lg shadow-lg overflow-hidden">
                 <div class="relative">
-                    <img id="thumbnail" class="w-full h-fit" src="https://c.saavncdn.com/663/Pasoori-Punjabi-2022-20220203181058-500x500.jpg"
+                    <img id="thumbnail" class="w-full h-fit"
+                        src="https://c.saavncdn.com/663/Pasoori-Punjabi-2022-20220203181058-500x500.jpg"
                         class="object-cover">
                     <div
                         class="absolute p-4 inset-0 flex flex-col justify-end bg-gradient-to-b from-transparent to-gray-900 backdrop backdrop-blur-5 text-white">
@@ -136,16 +142,18 @@
 
                 <!-- Slider -->
                 <div>
-                    <input type="range" class="w-full" name="slider" id="slider" onchange="seekTo()" min="0" max="500">
+                    <input type="range" class="w-full" name="slider" id="slider" value="0">
                 </div>
 
 
                 <div class="flex justify-between text-xs font-semibold text-gray-500 px-4 py-2">
-                    <div id="startTime">
+                    <div id="currentTime">
                         0:00
                     </div>
+
+                    <!-- Controls -->
                     <div class="flex space-x-3 p-2">
-                        <button class="focus:outline-none">
+                        <button class="focus:outline-none" id="previous">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
                                 <polygon points="19 20 9 12 19 4 19 20"></polygon>
@@ -153,21 +161,22 @@
                             </svg>
                         </button>
                         <button
-                            class="rounded-full w-8 h-8 flex items-center justify-center pl-0.5 ring-2 ring-gray-100 focus:outline-none" id="controlBtn">
-                            <!-- Pause : seek_-->
+                            class="rounded-full w-8 h-8 flex items-center justify-center pl-0.5 ring-2 ring-gray-100 focus:outline-none"
+                            id="controlBtn">
+                            <!-- Pause :-->
                             <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
                               </svg> -->
 
-                              <!-- Play : -->
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
-                              </svg>
-                              
-                              
-                            
+                            <!-- Play : -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                            </svg>
+
                         </button>
-                        <button class="focus:outline-none">
+                        <button class="focus:outline-none" id="next">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
                                 <polygon points="5 4 15 12 5 20 5 4"></polygon>
@@ -175,22 +184,26 @@
                             </svg>
                         </button>
                     </div>
+                    <!-- End of Controls -->
+
                     <div id="endTime">
                         3:00
                     </div>
-                    
+
                 </div>
                 <ul class="text-xs sm:text-base divide-y border-t cursor-default">
-                    <li class="flex items-center space-x-3 hover:bg-gray-800">
-                        <button class="p-3  group focus:outline-none">
-                            <svg class="w-4 h-4 group-hover:text-white" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    <li class="flex items-center space-x-3">
+                        <button class="p-3 group focus:outline-none" id="favBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                             </svg>
+
                         </button>
-                        
+
                         <div class="flex-1">
-                            
+
                         </div>
                         Download
                         <button class="focus:outline-none pr-4 group" id="downloadBtn">
@@ -200,11 +213,11 @@
                             </svg>
                         </button>
                     </li>
-                    <li class="hover:bg-gray-800 h-auto text-right text-lg pt-2">
+                    <li class="h-auto text-right text-lg pt-2">
                         <p class="pr-8 pb-2" id="copyrights_label">℗ 2022 Giraffe Pakistan</p>
-                        
+
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
@@ -221,7 +234,7 @@
                         d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
                 </svg>
 
-                <span class="ml-3 text-xl">Music Player</span>
+                <span class="ml-3 text-xl">TuneStation</span>
             </a>
             <p class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">
                 Built

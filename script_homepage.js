@@ -1,11 +1,6 @@
-searchBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    location.href = './search.html';
-})
 
 const search = () => {
     let uri = "https://saavn.me/modules?language=hindi"
-    console.log(uri)
     fetch(uri)
         .then(response => {
             if (response.status == 404) {
@@ -16,7 +11,6 @@ const search = () => {
         }
         )
         .then(resp => {
-            console.log(resp)
             let albums = resp["data"]["trending"]["albums"]
             let songs = resp["data"]["trending"]["songs"]
             let albums_showcase = [
@@ -54,8 +48,7 @@ const search = () => {
                     name: songs[3]["name"],
                     image: songs[3]["image"][2]["link"]
                 }]
-            console.log(albums_showcase)
-            console.log(songs_showcase)
+
             for (let album of albums_showcase) {
                 albums_cards.innerHTML += `
                 <div class="p-4 lg:w-1/4 md:w-1/2">
@@ -85,7 +78,7 @@ const search = () => {
 
         })
         .catch(err => {
-            console.log('Fetch Error :-S', err);
+            alert("Some error occurred :(")
         });
 }
 
